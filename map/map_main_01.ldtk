@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 26,
+	"nextUid": 32,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -32,7 +32,7 @@
 	"defs": { "layers": [
 		{
 			"__type": "IntGrid",
-			"identifier": "IntGrid",
+			"identifier": "Collisions",
 			"type": "IntGrid",
 			"uid": 8,
 			"gridSize": 8,
@@ -403,25 +403,6 @@
 			"tilePivotY": 0
 		},
 		{
-			"__type": "AutoLayer",
-			"identifier": "Walls_01_auto",
-			"type": "AutoLayer",
-			"uid": 4,
-			"gridSize": 8,
-			"displayOpacity": 1,
-			"pxOffsetX": 0,
-			"pxOffsetY": 0,
-			"requiredTags": [],
-			"excludedTags": [],
-			"intGridValues": [{ "value": 1, "identifier": null, "color": "#000000" }],
-			"autoTilesetDefUid": 1,
-			"autoRuleGroups": [],
-			"autoSourceLayerDefUid": null,
-			"tilesetDefUid": null,
-			"tilePivotX": 0,
-			"tilePivotY": 0
-		},
-		{
 			"__type": "Tiles",
 			"identifier": "Walls_01",
 			"type": "Tiles",
@@ -482,7 +463,7 @@
 			"fieldInstances": [],
 			"layerInstances": [
 				{
-					"__identifier": "IntGrid",
+					"__identifier": "Collisions",
 					"__type": "IntGrid",
 					"__cWid": 40,
 					"__cHei": 23,
@@ -928,31 +909,6 @@
 						{ "px": [104,168], "src": [24,32], "f": 0, "t": 51, "d": [25,853] }
 					],
 					"seed": 3334302,
-					"overrideTilesetUid": null,
-					"gridTiles": [],
-					"entityInstances": []
-				},
-				{
-					"__identifier": "Walls_01_auto",
-					"__type": "AutoLayer",
-					"__cWid": 40,
-					"__cHei": 23,
-					"__gridSize": 8,
-					"__opacity": 1,
-					"__pxTotalOffsetX": 0,
-					"__pxTotalOffsetY": 0,
-					"__tilesetDefUid": 1,
-					"__tilesetRelPath": "tiles_greenery_01.png",
-					"levelId": 0,
-					"layerDefUid": 4,
-					"pxOffsetX": 0,
-					"pxOffsetY": 0,
-					"visible": true,
-					"optionalRules": [],
-					"intGrid": [],
-					"intGridCsv": [],
-					"autoLayerTiles": [],
-					"seed": 1518990,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
 					"entityInstances": []

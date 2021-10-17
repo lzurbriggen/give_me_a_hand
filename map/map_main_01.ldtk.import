@@ -1,15 +1,17 @@
 [remap]
 
-importer="ldtk.mapimporter"
-type="Scenes"
+importer="LDtk.import"
+type="PackedScene"
 path="res://.import/map_main_01.ldtk-c3457ba9f03b404e73f31824ee7145fd.tscn"
 
 [deps]
 
-files=[ "res://map/map_main_01/Level_0.tscn", "res://map/map_main_01/tilesets/Greenery_01.tres" ]
-
 source_file="res://map/map_main_01.ldtk"
-dest_files=[ "res://.import/map_main_01.ldtk-c3457ba9f03b404e73f31824ee7145fd.tscn", "res://map/map_main_01/Level_0.tscn", "res://map/map_main_01/tilesets/Greenery_01.tres" ]
+dest_files=[ "res://.import/map_main_01.ldtk-c3457ba9f03b404e73f31824ee7145fd.tscn" ]
 
 [params]
 
+Import_Collisions=true
+Import_Custom_Entities=true
+Import_Metadata=true
+Import_YSort_Entities_Layer=false

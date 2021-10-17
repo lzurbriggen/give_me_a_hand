@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-91b084043b8aaf2f1c906e7b9fa92969.stex"
+path="res://.import/body_01.png-fe65b8ab590428cf12a94539493e7e0a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/gut/icon.png"
-dest_files=[ "res://.import/icon.png-91b084043b8aaf2f1c906e7b9fa92969.stex" ]
+source_file="res://player/body_01.png"
+dest_files=[ "res://.import/body_01.png-fe65b8ab590428cf12a94539493e7e0a.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
