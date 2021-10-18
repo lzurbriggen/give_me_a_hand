@@ -1,16 +1,17 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://player/hand_01.png" type="Texture" id=1]
 [ext_resource path="res://player/Player.cs" type="Script" id=2]
 [ext_resource path="res://map/map_main_01.ldtk" type="PackedScene" id=3]
 [ext_resource path="res://player/body_01.png" type="Texture" id=4]
 [ext_resource path="res://player/PlayerBody.cs" type="Script" id=5]
+[ext_resource path="res://ui/ninetile_dark_01.png" type="Texture" id=6]
 
 [sub_resource type="PhysicsMaterial" id=6]
 bounce = 0.25
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 7.89513
+radius = 6.93863
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 3.99614
@@ -38,18 +39,13 @@ animations = [ {
 
 [node name="Node2D" type="Node2D"]
 
-[node name="mainCamera" type="Camera2D" parent="."]
-position = Vector2( 160, -92 )
-offset = Vector2( 0, -2 )
-current = true
-
 [node name="player" type="Node2D" parent="."]
 position = Vector2( 136, -154 )
 z_index = 10
 script = ExtResource( 2 )
 
 [node name="armLine" type="Line2D" parent="player"]
-points = PoolVector2Array( 0, 0, 20, 20 )
+points = PoolVector2Array( 0, 0, 0, 0 )
 width = 2.0
 default_color = Color( 1, 1, 1, 1 )
 joint_mode = 2
@@ -60,6 +56,18 @@ end_cap_mode = 2
 mass = 1.02041
 physics_material_override = SubResource( 6 )
 gravity_scale = 2.0
+angular_damp = 50.0
+
+[node name="mainCamera" type="Camera2D" parent="player/body"]
+offset = Vector2( 0, -2 )
+current = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_speed = 10.0
+drag_margin_left = 0.3
+drag_margin_top = 0.25
+drag_margin_right = 0.3
+drag_margin_bottom = 0.25
 
 [node name="shape" type="CollisionShape2D" parent="player/body"]
 shape = SubResource( 1 )
@@ -71,6 +79,7 @@ script = ExtResource( 5 )
 [node name="armSpring" type="DampedSpringJoint2D" parent="player"]
 length = 48.0
 rest_length = 8.0
+stiffness = 40.0
 
 [node name="hand" type="StaticBody2D" parent="player"]
 collision_layer = 0
@@ -78,9 +87,28 @@ collision_mask = 0
 
 [node name="shape" type="CollisionShape2D" parent="player/hand"]
 shape = SubResource( 2 )
+disabled = true
 
 [node name="sprite" type="AnimatedSprite" parent="player/hand"]
 frames = SubResource( 4 )
 
+[node name="armJoint" type="PinJoint2D" parent="player"]
+visible = false
+softness = 4.0
+
 [node name="map_main_02" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, -256 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+margin_left = 248.0
+margin_top = -176.0
+margin_right = 312.0
+margin_bottom = -136.0
+texture = ExtResource( 6 )
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -6,6 +6,7 @@ public class Player : Node2D {
   private StaticBody2D hand;
   private Line2D armLine;
   private DampedSpringJoint2D armSpring;
+  // private PinJoint2D armSpring;
 
   private bool closed = false;
   private Vector2 closePosition = Vector2.Zero;
@@ -15,10 +16,12 @@ public class Player : Node2D {
     hand = GetNode<StaticBody2D>("hand");
     armLine = GetNode<Line2D>("armLine");
     armSpring = GetNode<DampedSpringJoint2D>("armSpring");
+    // armSpring = GetNode<PinJoint2D>("armJoint");
+    GD.Print(GetChildren());
 
     // TODO: move to appropriate script
     Input.SetMouseMode(Input.MouseMode.Confined);
-
+    VisualServer.SetDefaultClearColor(new Color("f4cca1"));
   }
 
   public override void _PhysicsProcess(float delta) {
@@ -26,6 +29,7 @@ public class Player : Node2D {
       hand.GlobalPosition = closePosition;
     } else {
       hand.GlobalPosition = body.GlobalPosition + body.GlobalPosition.DirectionTo(GetGlobalMousePosition()) * Mathf.Min(body.GlobalPosition.DistanceTo(GetGlobalMousePosition()), 48);
+      armSpring.GlobalPosition = hand.GlobalPosition;
     }
     armLine.SetPointPosition(0, body.Position);
     armLine.SetPointPosition(1, hand.Position);
@@ -36,8 +40,8 @@ public class Player : Node2D {
 
     if (Input.IsActionJustPressed("grab")) {
       closed = true;
-      armSpring.NodeA = body.GetPath();
-      armSpring.NodeB = hand.GetPath();
+      armSpring.NodeA = hand.GetPath();
+      armSpring.NodeB = body.GetPath();
       closePosition = GetGlobalMousePosition();
     }
 
@@ -46,7 +50,7 @@ public class Player : Node2D {
       armSpring.NodeB = "";
       closed = false;
       // TODO: calculate fractional impulse
-      body.ApplyImpulse(Vector2.Zero, body.Position.DirectionTo(hand.Position) * 500f);
+      body.ApplyImpulse(Vector2.Zero, body.Position.DirectionTo(hand.Position) * 200f);
     }
 
     // TODO: move to appropriate script
