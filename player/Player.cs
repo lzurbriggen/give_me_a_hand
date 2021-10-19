@@ -26,13 +26,11 @@ public class Player : Node2D {
     // TODO: move to appropriate script
     Input.SetMouseMode(Input.MouseMode.Confined);
     // Input.SetMouseMode(Input.MouseMode.Hidden);
-    // VisualServer.SetDefaultClearColor(new Color("ead4aa"));
 
     var map = GetTree().Root.GetNode<Node2D>("root/map");
     var tilemap = (TileMap)map.GetChild(0).GetChild(1);
     var tilebounds = tilemap.GetUsedRect().Size * tilemap.CellSize;
     GD.Print(tilemap.GetUsedRect().Size * tilemap.CellSize);
-    // GD.Print(tilemap.GetUsedRect().Size.y * tilemap.CellSize.y);
     camera.LimitLeft = 0;
     camera.LimitBottom = 0;
     camera.LimitRight = Mathf.RoundToInt(tilebounds.x);
@@ -77,9 +75,6 @@ public class Player : Node2D {
 
     if (Input.IsActionJustPressed("grab")) {
 
-      // var spaceState = GetWorld2d().DirectSpaceState;
-      // var result = spaceState.IntersectRay(body.GlobalPosition, GetGlobalMousePosition());
-      // GD.Print(result["position"]);
       var handPosition = getHandCollision();
       if (handPosition != null) {
         closed = true;
@@ -89,17 +84,30 @@ public class Player : Node2D {
         handSprite.Animation = "hold";
         armLine.Show();
       }
-      // camera.proj
     }
 
     if (closed && Input.IsActionJustReleased("ui_accept")) {
       armSpring.NodeA = "";
       armSpring.NodeB = "";
       closed = false;
-      // TODO: calculate fractional impulse
-      body.ApplyImpulse(Vector2.Zero, body.Position.DirectionTo(hand.Position) * 200f);
+      var impulseAmount = (Mathf.Clamp(body.Position.DistanceTo(hand.Position) / 48f, 0f, 1f)) * 250f + 50f;
+      body.ApplyImpulse(Vector2.Zero, body.Position.DirectionTo(hand.Position) * impulseAmount);
       handSprite.Animation = "default";
       armLine.Hide();
+    }
+
+    var moveForce = 10f;
+    if (Input.IsActionPressed("ui_left")) {
+      body.ApplyImpulse(Vector2.Zero, Vector2.Left * moveForce);
+    }
+    if (Input.IsActionPressed("ui_right")) {
+      body.ApplyImpulse(Vector2.Zero, Vector2.Right * moveForce);
+    }
+    if (Input.IsActionPressed("ui_up")) {
+      body.ApplyImpulse(Vector2.Zero, Vector2.Up * moveForce);
+    }
+    if (Input.IsActionPressed("ui_down")) {
+      body.ApplyImpulse(Vector2.Zero, Vector2.Down * moveForce);
     }
 
     // TODO: move to appropriate script
