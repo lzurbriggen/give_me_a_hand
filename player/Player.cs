@@ -112,7 +112,7 @@ public class Player : Node2D {
 
     // TODO: move to appropriate script
     if (Input.IsActionPressed("ui_cancel")) {
-      GetTree().Quit();
+      // GetTree().Quit();
     }
   }
 }

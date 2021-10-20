@@ -9,20 +9,26 @@ public class PauseMenu : Control {
   private Control rect;
   private HSlider musicSlider;
   private HSlider sfxSlider;
+  private Button exitButton;
 
   public override void _Ready() {
+    this.Hide();
     rect = GetNode<Control>("rect");
     musicSlider = rect.GetNode<HSlider>("musicSlider");
     sfxSlider = rect.GetNode<HSlider>("sfxSlider");
+    exitButton = rect.GetNode<Button>("exit");
+    exitButton.Connect("pressed", this, nameof(exitGame), new Godot.Collections.Array());
 
-    musicSlider.Value = AudioServer.GetBusVolumeDb(MusicBusIndex);
-    sfxSlider.Value = AudioServer.GetBusVolumeDb(SfxBusIndex);
+    musicSlider.Value = GD.Db2Linear(AudioServer.GetBusVolumeDb(MusicBusIndex));
+    sfxSlider.Value = GD.Db2Linear(AudioServer.GetBusVolumeDb(SfxBusIndex));
   }
 
   public override void _Process(float delta) {
-    AudioServer.SetBusVolumeDb(MusicBusIndex, Convert.ToSingle(musicSlider.Value));
-    AudioServer.SetBusVolumeDb(SfxBusIndex, Convert.ToSingle(sfxSlider.Value));
-    GD.Print(AudioServer.GetBusVolumeDb(MusicBusIndex));
-    GD.Print(AudioServer.GetBusVolumeDb(SfxBusIndex));
+    AudioServer.SetBusVolumeDb(MusicBusIndex, GD.Linear2Db(Convert.ToSingle(musicSlider.Value)));
+    AudioServer.SetBusVolumeDb(SfxBusIndex, GD.Linear2Db(Convert.ToSingle(sfxSlider.Value)));
+  }
+
+  void exitGame() {
+    GetTree().Quit();
   }
 }
