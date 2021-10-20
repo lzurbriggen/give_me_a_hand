@@ -6,7 +6,6 @@ public class UI : CanvasLayer {
   private Control pauseMenu;
 
   public override void _Ready() {
-    //   get_tree().paused = true
     pauseMenu = GetNode<Control>("pauseMenu");
   }
 
