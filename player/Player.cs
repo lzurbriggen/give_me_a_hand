@@ -29,7 +29,6 @@ public class Player : Node2D {
     // TODO: why does the GetNode<Sprite> not work here?
     bodySprite = body.GetNode<PlayerBody>("sprite");
     // GD.Print(GetNode<Node2D>("body/sprite") as Sprite);
-    GD.Print(bodySprite);
     handSprite = hand.GetNode<AnimatedSprite>("sprite");
     camera = body.GetNode<Camera2D>("camera");
 
@@ -73,13 +72,19 @@ public class Player : Node2D {
     if (closed) {
       hand.GlobalPosition = closePosition;
       hand.Show();
+      armLine.SetPointPosition(0, body.Position);
+      armLine.SetPointPosition(1, hand.Position);
+      // armLine.Width = (1f - Mathf.Clamp(body.Position.DistanceTo(hand.Position) / 48f, 0f, 1f)) * 4f + 2f;
+      armLine.Width = 5;
+      var dir = body.Position.DirectionTo(hand.Position);
+      float angle = Mathf.Atan2(dir.y, dir.x);
+      int octant = Mathf.RoundToInt(8 * angle / (2 * Mathf.Pi) + 8) % 8;
+      handSprite.Animation = (8 - (octant + 2) % 8).ToString();
+
     } else {
       hand.GlobalPosition = body.GlobalPosition + body.GlobalPosition.DirectionTo(GetGlobalMousePosition()) * Mathf.Min(body.GlobalPosition.DistanceTo(GetGlobalMousePosition()), 48);
       armSpring.GlobalPosition = hand.GlobalPosition;
     }
-    armLine.SetPointPosition(0, body.Position);
-    armLine.SetPointPosition(1, hand.Position);
-    armLine.Width = (1f - Mathf.Clamp(body.Position.DistanceTo(hand.Position) / 48f, 0f, 1f)) * 4f + 2f;
 
     // TODO: remove?
     if (closed) {
@@ -137,7 +142,7 @@ public class Player : Node2D {
             armSpring.NodeB = body.GetPath();
             armSpring.SetPhysicsProcess(true);
             closePosition = (Vector2)handPosition;
-            handSprite.Animation = "hold";
+            handSprite.Animation = "0";
             armLine.Show();
           }
         }
@@ -157,7 +162,7 @@ public class Player : Node2D {
       jumpTimer.Start();
     }
 
-    if (closed && Input.IsActionJustReleased("ui_accept") && !jumpTimer.IsStopped()) {
+    if (closed && Input.IsActionJustReleased("ui_accept")) {
       armSpring.NodeA = "";
       armSpring.NodeB = "";
       bodySprite.Modulate = new Color(1f, 1f, 1f);
