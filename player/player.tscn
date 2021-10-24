@@ -1,0 +1,201 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://player/hand_03.png" type="Texture" id=1]
+[ext_resource path="res://player/hand_02.png" type="Texture" id=2]
+[ext_resource path="res://player/body_01.png" type="Texture" id=3]
+[ext_resource path="res://player/PlayerBody.cs" type="Script" id=4]
+[ext_resource path="res://player/Player.cs" type="Script" id=5]
+[ext_resource path="res://player/ShakeCamera.cs" type="Script" id=6]
+
+[sub_resource type="PhysicsMaterial" id=1]
+bounce = 0.4
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 6.93863
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ SubResource( 3 ) ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"loop": false,
+"name": "compress",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=9]
+radius = 3.99614
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 1 )
+region = Rect2( 80, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 96, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 1 )
+region = Rect2( 112, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=19]
+animations = [ {
+"frames": [ SubResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 11 ) ],
+"loop": true,
+"name": "3",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 12 ) ],
+"loop": true,
+"name": "4",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 13 ) ],
+"loop": true,
+"name": "5",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 14 ) ],
+"loop": true,
+"name": "0",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 15 ) ],
+"loop": true,
+"name": "2",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 16 ) ],
+"loop": true,
+"name": "6",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 17 ) ],
+"loop": true,
+"name": "1",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 18 ) ],
+"loop": true,
+"name": "7",
+"speed": 5.0
+} ]
+
+[node name="player" type="Node2D"]
+position = Vector2( 136, -154 )
+z_index = 10
+script = ExtResource( 5 )
+
+[node name="armLine" type="Line2D" parent="."]
+visible = false
+points = PoolVector2Array( 0, 0, 0, 0 )
+width = 2.0
+default_color = Color( 1, 1, 1, 1 )
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="aimLine" type="Line2D" parent="."]
+position = Vector2( 0.264862, 0 )
+points = PoolVector2Array( 0, 0, 0, 0 )
+width = 1.0
+default_color = Color( 1, 1, 1, 0.501961 )
+
+[node name="body" type="RigidBody2D" parent="."]
+mass = 1.02041
+physics_material_override = SubResource( 1 )
+gravity_scale = 2.0
+continuous_cd = 2
+contacts_reported = 1
+contact_monitor = true
+angular_damp = 50.0
+
+[node name="camera" type="Camera2D" parent="body"]
+current = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_speed = 10.0
+drag_margin_left = 0.3
+drag_margin_top = 0.25
+drag_margin_right = 0.3
+drag_margin_bottom = 0.25
+script = ExtResource( 6 )
+
+[node name="shape" type="CollisionShape2D" parent="body"]
+shape = SubResource( 2 )
+
+[node name="sprite" type="AnimatedSprite" parent="body"]
+frames = SubResource( 8 )
+script = ExtResource( 4 )
+
+[node name="armSpring" type="DampedSpringJoint2D" parent="."]
+length = 48.0
+rest_length = 8.0
+stiffness = 40.0
+
+[node name="hand" type="StaticBody2D" parent="."]
+position = Vector2( 27.6979, 14 )
+collision_layer = 0
+collision_mask = 0
+
+[node name="shape" type="CollisionShape2D" parent="hand"]
+shape = SubResource( 9 )
+disabled = true
+
+[node name="sprite" type="AnimatedSprite" parent="hand"]
+frames = SubResource( 19 )
+
+[node name="armJoint" type="PinJoint2D" parent="."]
+softness = 5.0
