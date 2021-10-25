@@ -10,6 +10,7 @@ public class PauseMenu : Control {
   private HSlider musicSlider;
   private HSlider sfxSlider;
   private Button exitButton;
+  private Button toggleFullscreenButton;
 
   public override void _Ready() {
     this.Hide();
@@ -18,6 +19,8 @@ public class PauseMenu : Control {
     sfxSlider = rect.GetNode<HSlider>("sfxSlider");
     exitButton = rect.GetNode<Button>("exit");
     exitButton.Connect("pressed", this, nameof(exitGame), new Godot.Collections.Array());
+    toggleFullscreenButton = rect.GetNode<Button>("toggleFullscreen");
+    toggleFullscreenButton.Connect("pressed", this, nameof(toggleFullscreen), new Godot.Collections.Array());
 
     musicSlider.Value = GD.Db2Linear(AudioServer.GetBusVolumeDb(MusicBusIndex));
     sfxSlider.Value = GD.Db2Linear(AudioServer.GetBusVolumeDb(SfxBusIndex));
@@ -30,5 +33,14 @@ public class PauseMenu : Control {
 
   void exitGame() {
     GetTree().Quit();
+  }
+
+  void toggleFullscreen() {
+    OS.WindowFullscreen = !OS.WindowFullscreen;
+    if (OS.WindowFullscreen) {
+      toggleFullscreenButton.Text = "Windowed";
+    } else {
+      toggleFullscreenButton.Text = "Fullscreen";
+    }
   }
 }

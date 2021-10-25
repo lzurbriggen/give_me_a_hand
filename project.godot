@@ -21,6 +21,7 @@ window/size/height=180
 window/size/test_width=1280
 window/size/test_height=720
 window/dpi/allow_hidpi=true
+window/vsync/use_vsync=false
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_width"
 

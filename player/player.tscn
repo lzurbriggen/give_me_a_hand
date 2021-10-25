@@ -19,30 +19,30 @@ region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 16, 16 )
+region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 3 )
-region = Rect2( 16, 0, 16, 16 )
+region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 3 )
-region = Rect2( 32, 0, 16, 16 )
+region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 3 )
-region = Rect2( 48, 0, 16, 16 )
+region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=8]
 animations = [ {
-"frames": [ SubResource( 3 ) ],
-"loop": false,
-"name": "default",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
 "loop": false,
 "name": "compress",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 7 ) ],
+"loop": false,
+"name": "default",
 "speed": 5.0
 } ]
 
@@ -59,23 +59,23 @@ region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 16, 16 )
+region = Rect2( 80, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
-region = Rect2( 80, 0, 16, 16 )
+region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 16, 16 )
+region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 16, 16 )
+region = Rect2( 96, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 1 )
-region = Rect2( 96, 0, 16, 16 )
+region = Rect2( 112, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 1 )
@@ -83,7 +83,7 @@ region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 1 )
-region = Rect2( 112, 0, 16, 16 )
+region = Rect2( 64, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=19]
 animations = [ {
@@ -99,27 +99,27 @@ animations = [ {
 }, {
 "frames": [ SubResource( 12 ) ],
 "loop": true,
-"name": "4",
+"name": "5",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 13 ) ],
 "loop": true,
-"name": "5",
+"name": "0",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 14 ) ],
 "loop": true,
-"name": "0",
+"name": "2",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 15 ) ],
 "loop": true,
-"name": "2",
+"name": "6",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 16 ) ],
 "loop": true,
-"name": "6",
+"name": "7",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 17 ) ],
@@ -129,7 +129,7 @@ animations = [ {
 }, {
 "frames": [ SubResource( 18 ) ],
 "loop": true,
-"name": "7",
+"name": "4",
 "speed": 5.0
 } ]
 
@@ -199,3 +199,12 @@ frames = SubResource( 19 )
 
 [node name="armJoint" type="PinJoint2D" parent="."]
 softness = 5.0
+
+[node name="hitSound" type="AudioStreamPlayer2D" parent="."]
+bus = "Sfx"
+
+[node name="jumpChargeSound" type="AudioStreamPlayer2D" parent="."]
+bus = "Sfx"
+
+[node name="jumpSound" type="AudioStreamPlayer2D" parent="."]
+bus = "Sfx"

@@ -13,10 +13,12 @@ public class UI : CanvasLayer {
     if (Input.IsActionJustPressed("ui_cancel")) {
       if (gamePaused) {
         pauseMenu.Hide();
+        Input.SetMouseMode(Input.MouseMode.Confined);
         GetTree().Paused = false;
         gamePaused = false;
       } else {
         pauseMenu.Show();
+        Input.SetMouseMode(Input.MouseMode.Visible);
         GetTree().Paused = true;
         gamePaused = true;
       }
