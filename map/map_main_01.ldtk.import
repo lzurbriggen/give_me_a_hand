@@ -11,7 +11,7 @@ dest_files=[ "res://.import/map_main_01.ldtk-c3457ba9f03b404e73f31824ee7145fd.ts
 
 [params]
 
-Import_Collisions=true
+Import_Collisions=false
 Import_Custom_Entities=true
 Import_Metadata=true
 Import_YSort_Entities_Layer=false

@@ -153,11 +153,17 @@ func new_tileset(tilemap_data, tileset_data):
 	var texture_filepath = map_data.base_dir + '/' + tileset_data.relPath
 	var texture = load(texture_filepath)
 
+	var shouldImportCollisions = tilemap_data.__identifier == "Collisions"
+	print(shouldImportCollisions)
+
 	var texture_image = texture.get_data()
 
 	var gridWidth = (tileset_data.pxWid - tileset_data.padding) / (tileset_data.tileGridSize + tileset_data.spacing)
 	var gridHeight = (tileset_data.pxHei - tileset_data.padding) / (tileset_data.tileGridSize + tileset_data.spacing)
 	var gridSize = gridWidth * gridHeight
+
+	var shape = ConvexPolygonShape2D.new()
+	shape.set_points([Vector2(0, 0), Vector2(8, 0), Vector2(8, 8), Vector2(0, 8)])
 
 	for tileId in range(0, gridSize):
 		var tile_image = texture_image.get_rect(get_tile_region(tileId, tileset_data))
@@ -166,6 +172,10 @@ func new_tileset(tilemap_data, tileset_data):
 			tileset.tile_set_tile_mode(tileId, TileSet.SINGLE_TILE)
 			tileset.tile_set_texture(tileId, texture)
 			tileset.tile_set_region(tileId, get_tile_region(tileId, tileset_data))
+			# TODO: hacky collision shape
+
+			if shouldImportCollisions:
+				tileset.tile_set_shape(tileId, tileId, shape)
 			
 			for data in tileset_data.customData:
 				if tileId == data.tileId:

@@ -2,7 +2,9 @@ using Godot;
 using System;
 
 public class Player : Node2D {
-  private RigidBody2D body;
+  // private RigidBody2D body;
+  private KinematicBody2D body;
+  private Vector2 velocity;
   private StaticBody2D hand;
   private Line2D armLine;
   private Line2D aimLine;
@@ -31,7 +33,8 @@ public class Player : Node2D {
   }
 
   public override void _Ready() {
-    body = GetNode<RigidBody2D>("body");
+    // body = GetNode<RigidBody2D>("body");
+    body = GetNode<KinematicBody2D>("body2");
     hand = GetNode<StaticBody2D>("hand");
     armLine = GetNode<Line2D>("armLine");
     aimLine = GetNode<Line2D>("aimLine");
@@ -70,8 +73,6 @@ public class Player : Node2D {
     camera.LimitBottom = 0;
     camera.LimitRight = Mathf.RoundToInt(tilebounds.x);
     camera.LimitTop = -Mathf.RoundToInt(tilebounds.y);
-
-    body.Connect("body_entered", this, nameof(bodyEntered));
   }
 
   void startBlinkTimer() {
@@ -88,41 +89,11 @@ public class Player : Node2D {
 
   Vector2? getRayPointFromBody(Vector2 vec) {
     var spaceState = GetWorld2d().DirectSpaceState;
-    var result = spaceState.IntersectRay(body.GlobalPosition, body.GlobalPosition + vec * 8.1f);
+    var result = spaceState.IntersectRay(body.GlobalPosition, body.GlobalPosition + vec * 8.1f, new Godot.Collections.Array(body));
     if (result.Count == 0) {
       return null;
     }
     return (Vector2)result["position"];
-  }
-
-  // TODO: this is a mess. couldn't figure out a simple way to get contact positions 
-  void bodyEntered(PhysicsBody2D other) {
-    if (other != null) {
-      if (body.LinearVelocity.Length() > 30f) {
-        var hitPower = (Mathf.Max(body.LinearVelocity.Length() - 60f, 0f)) / 60f;
-        camera.addTrauma(Mathf.Min(hitPower + 0.09f, 0.14f));
-        hitSound.VolumeDb = (-6f) * (1f - Mathf.Clamp(hitPower, 0f, 1f));
-        hitSound.Play();
-        var dir = body.LinearVelocity.Normalized();
-        float angle = Mathf.Atan2(dir.y, dir.x);
-        int cardinalDir = Mathf.RoundToInt(4 * angle / (2 * Mathf.Pi) + 4) % 4;
-        Vector2? result;
-        if (cardinalDir == 0) {
-          result = getRayPointFromBody(Vector2.Left);
-        } else if (cardinalDir == 1) {
-          result = getRayPointFromBody(Vector2.Up);
-        } else if (cardinalDir == 2) {
-          result = getRayPointFromBody(Vector2.Right);
-        } else {
-          result = getRayPointFromBody(Vector2.Down);
-        }
-        if (result != null) {
-          var dust = dustScn.Instance<Dust>();
-          dust.Position = (Vector2)result;
-          GetTree().Root.AddChild(dust);
-        }
-      }
-    }
   }
 
   public override void _Process(float delta) {
@@ -195,16 +166,65 @@ public class Player : Node2D {
         moveDir += Vector2.Down;
       }
       if (moveDir.Length() > 0f) {
-        body.LinearVelocity = Vector2.Zero;
+        velocity = Vector2.Zero;
         body.Position += moveDir * moveForce * delta;
       }
     }
+
+    // var velocity = speed * delta * direction # move slow? increases speed or multiply this x 100
+
+    // velocity *= (1f - 0.2f * delta);
+    velocity.y += 98f * 2f * delta;
+    body.MoveAndSlide(velocity);
+    if (body.IsOnFloor()) {
+      velocity.y = 0;
+    }
+    if (body.GetSlideCount() > 0) {
+      var collision = body.GetSlideCollision(0);
+      if (collision != null) {
+
+        if (velocity.Length() > 30f) {
+          var hitPower = (Mathf.Max(velocity.Length() - 150f, 0f)) / 60f;
+          camera.addTrauma(Mathf.Min(hitPower, 0.14f));
+          hitSound.VolumeDb = (-6f) * (1f - Mathf.Clamp(hitPower, 0f, 1f));
+          hitSound.Play();
+          var dir = velocity.Normalized();
+          float angle = Mathf.Atan2(dir.y, dir.x);
+          int cardinalDir = Mathf.RoundToInt(4 * angle / (2 * Mathf.Pi) + 4) % 4;
+          Vector2? result;
+          if (cardinalDir == 0) {
+            result = getRayPointFromBody(Vector2.Left);
+          } else if (cardinalDir == 1) {
+            result = getRayPointFromBody(Vector2.Up);
+          } else if (cardinalDir == 2) {
+            result = getRayPointFromBody(Vector2.Right);
+          } else {
+            result = getRayPointFromBody(Vector2.Down);
+          }
+          if (result != null) {
+            var dust = dustScn.Instance<Dust>();
+            dust.Position = (Vector2)result;
+            GetTree().Root.AddChild(dust);
+          }
+        }
+
+        // damping seems weird
+        if (collision.Normal.y == -1) {
+          velocity.x *= (1f - 0.2f * delta);
+        }
+
+        var bounciness = 0.5f;
+
+        velocity = velocity.Bounce(collision.Normal) * bounciness;
+      }
+    }
+
   }
 
   Vector2? getHandCollision() {
     var spaceState = GetWorld2d().DirectSpaceState;
     var dir = body.GlobalPosition.DirectionTo(GetGlobalMousePosition());
-    var result = spaceState.IntersectRay(body.GlobalPosition, body.GlobalPosition + dir * 320f);
+    var result = spaceState.IntersectRay(body.GlobalPosition, body.GlobalPosition + dir * 320f, new Godot.Collections.Array(body));
     if (result.Count == 0) {
       return null;
     }
@@ -220,7 +240,7 @@ public class Player : Node2D {
   }
 
   bool slowEnough() {
-    return body.LinearVelocity.Length() <= 7f;
+    return velocity.Length() <= 2f;
   }
 
   void stopGrab() {
@@ -266,7 +286,8 @@ public class Player : Node2D {
       jumpChargeSound.Stop();
       jumpSound.Play();
       var impulseAmount = jumpStrengthMult() * 500f;
-      body.ApplyImpulse(Vector2.Zero, body.Position.DirectionTo(hand.Position) * impulseAmount);
+      velocity = body.Position.DirectionTo(hand.Position) * impulseAmount;
+      // body.ApplyImpulse(Vector2.Zero, body.Position.DirectionTo(hand.Position) * impulseAmount);
       stopGrab();
       var downPoint = getRayPointFromBody(Vector2.Down);
       if (downPoint != null) {

@@ -7,11 +7,12 @@
 [ext_resource path="res://player/Player.cs" type="Script" id=5]
 [ext_resource path="res://player/ShakeCamera.cs" type="Script" id=6]
 
-[sub_resource type="PhysicsMaterial" id=1]
-bounce = 0.4
-
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=1]
 radius = 6.93863
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
@@ -33,120 +34,119 @@ region = Rect2( 48, 0, 16, 16 )
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=21]
+[sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 3 )
 region = Rect2( 64, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=22]
+[sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 3 )
 region = Rect2( 80, 0, 16, 16 )
 
-[sub_resource type="SpriteFrames" id=8]
+[sub_resource type="SpriteFrames" id=10]
 animations = [ {
+"frames": [ SubResource( 2 ) ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
 "loop": false,
 "name": "compress",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 7 ) ],
-"loop": false,
-"name": "default",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 21 ), SubResource( 20 ) ],
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 8 ), SubResource( 7 ) ],
 "loop": false,
 "name": "blink",
 "speed": 14.0
 } ]
 
-[sub_resource type="CircleShape2D" id=9]
+[sub_resource type="PhysicsMaterial" id=11]
+bounce = 0.4
+
+[sub_resource type="CircleShape2D" id=12]
 radius = 3.99614
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 1 )
-region = Rect2( 80, 0, 16, 16 )
-
 [sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 1 )
-region = Rect2( 112, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 1 )
-region = Rect2( 96, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 1 )
-region = Rect2( 48, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 1 )
 region = Rect2( 16, 0, 16, 16 )
 
-[sub_resource type="SpriteFrames" id=19]
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 80, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 1 )
+region = Rect2( 112, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 1 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 1 )
+region = Rect2( 96, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=22]
 animations = [ {
-"frames": [ SubResource( 10 ) ],
+"frames": [ SubResource( 13 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 11 ) ],
-"loop": true,
-"name": "2",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 12 ) ],
-"loop": true,
-"name": "0",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 13 ) ],
-"loop": true,
-"name": "5",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 14 ) ],
 "loop": true,
-"name": "7",
+"name": "1",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 15 ) ],
 "loop": true,
-"name": "6",
+"name": "5",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 16 ) ],
 "loop": true,
-"name": "3",
+"name": "2",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 17 ) ],
 "loop": true,
-"name": "4",
+"name": "7",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 18 ) ],
 "loop": true,
-"name": "1",
+"name": "4",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 19 ) ],
+"loop": true,
+"name": "0",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 20 ) ],
+"loop": true,
+"name": "3",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 21 ) ],
+"loop": true,
+"name": "6",
 "speed": 5.0
 } ]
 
@@ -170,9 +170,31 @@ points = PoolVector2Array( 0, 0, 0, 0 )
 width = 1.0
 default_color = Color( 1, 1, 1, 0.501961 )
 
+[node name="body2" type="KinematicBody2D" parent="."]
+
+[node name="camera" type="Camera2D" parent="body2"]
+current = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_speed = 10.0
+drag_margin_left = 0.3
+drag_margin_top = 0.25
+drag_margin_right = 0.3
+drag_margin_bottom = 0.25
+script = ExtResource( 6 )
+
+[node name="shape" type="CollisionShape2D" parent="body2"]
+shape = SubResource( 1 )
+
+[node name="sprite" type="AnimatedSprite" parent="body2"]
+frames = SubResource( 10 )
+animation = "blink"
+script = ExtResource( 4 )
+
 [node name="body" type="RigidBody2D" parent="."]
+visible = false
 mass = 1.02041
-physics_material_override = SubResource( 1 )
+physics_material_override = SubResource( 11 )
 gravity_scale = 2.0
 continuous_cd = 2
 contacts_reported = 1
@@ -180,6 +202,7 @@ contact_monitor = true
 angular_damp = 50.0
 
 [node name="camera" type="Camera2D" parent="body"]
+visible = false
 current = true
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
@@ -191,10 +214,10 @@ drag_margin_bottom = 0.25
 script = ExtResource( 6 )
 
 [node name="shape" type="CollisionShape2D" parent="body"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="sprite" type="AnimatedSprite" parent="body"]
-frames = SubResource( 8 )
+frames = SubResource( 10 )
 animation = "blink"
 script = ExtResource( 4 )
 
@@ -209,11 +232,11 @@ collision_layer = 0
 collision_mask = 0
 
 [node name="shape" type="CollisionShape2D" parent="hand"]
-shape = SubResource( 9 )
+shape = SubResource( 12 )
 disabled = true
 
 [node name="sprite" type="AnimatedSprite" parent="hand"]
-frames = SubResource( 19 )
+frames = SubResource( 22 )
 
 [node name="armJoint" type="PinJoint2D" parent="."]
 softness = 5.0
