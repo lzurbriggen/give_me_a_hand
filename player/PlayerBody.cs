@@ -8,6 +8,6 @@ public class PlayerBody : AnimatedSprite {
   }
 
   public override void _PhysicsProcess(float delta) {
-	GlobalRotation = 0;
+    GlobalRotation = 0;
   }
 }

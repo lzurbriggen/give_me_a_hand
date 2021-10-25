@@ -23,6 +23,9 @@ public class Player : Node2D {
   private AudioStreamPlayer2D jumpSound;
   private AudioStreamPlayer2D jumpChargeSound;
 
+  private Timer blinkTimer;
+  private Random random;
+
   float remap(float value, float prevLow, float prevHigh, float newLow, float newHigh) {
     return newLow + (value - prevLow) * (newHigh - newLow) / (prevHigh - prevLow);
   }
@@ -43,6 +46,13 @@ public class Player : Node2D {
     jumpSound = GetNode<AudioStreamPlayer2D>("jumpSound");
     jumpChargeSound = GetNode<AudioStreamPlayer2D>("jumpChargeSound");
 
+    random = new Random();
+    blinkTimer = new Timer();
+    AddChild(blinkTimer);
+    blinkTimer.OneShot = true;
+    blinkTimer.Connect("timeout", this, nameof(blink));
+    startBlinkTimer();
+
     jumpTimer = new Timer();
     AddChild(jumpTimer);
     jumpTimer.WaitTime = 0.75f;
@@ -62,6 +72,18 @@ public class Player : Node2D {
     camera.LimitTop = -Mathf.RoundToInt(tilebounds.y);
 
     body.Connect("body_entered", this, nameof(bodyEntered));
+  }
+
+  void startBlinkTimer() {
+    blinkTimer.WaitTime = (float)random.NextDouble() * 5f + 0.25f;
+    blinkTimer.Start();
+  }
+  void blink() {
+    if (bodySprite.Animation == "default" || bodySprite.Animation == "blink") {
+      bodySprite.Play("blink");
+      bodySprite.Frame = 0;
+    }
+    startBlinkTimer();
   }
 
   Vector2? getRayPointFromBody(Vector2 vec) {

@@ -63,6 +63,8 @@ grab={
 [physics]
 
 common/enable_pause_aware_picking=true
+2d/default_linear_damp=0.2
+2d/default_angular_damp=1.1
 
 [rendering]
 
