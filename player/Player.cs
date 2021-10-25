@@ -163,6 +163,7 @@ public class Player : Node2D {
       armLine.Width = 4;
       var dir = body.Position.DirectionTo(hand.Position);
       float angle = Mathf.Atan2(dir.y, dir.x);
+      // TODO: something's wrong i can feel it
       int octant = Mathf.RoundToInt(8 * angle / (2 * Mathf.Pi) + 8) % 8;
       handSprite.Animation = (8 - (octant + 2) % 8).ToString();
 
