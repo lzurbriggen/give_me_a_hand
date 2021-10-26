@@ -7,7 +7,7 @@
 [ext_resource path="res://player/Player.cs" type="Script" id=5]
 [ext_resource path="res://player/ShakeCamera.cs" type="Script" id=6]
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=23]
 radius = 6.93863
 
 [sub_resource type="AtlasTexture" id=2]
@@ -34,15 +34,15 @@ region = Rect2( 48, 0, 16, 16 )
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 3 )
 region = Rect2( 64, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 3 )
 region = Rect2( 80, 0, 16, 16 )
 
-[sub_resource type="SpriteFrames" id=10]
+[sub_resource type="SpriteFrames" id=26]
 animations = [ {
 "frames": [ SubResource( 2 ) ],
 "loop": false,
@@ -54,16 +54,16 @@ animations = [ {
 "name": "compress",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 8 ), SubResource( 7 ) ],
+"frames": [ SubResource( 7 ), SubResource( 24 ), SubResource( 25 ), SubResource( 24 ), SubResource( 7 ) ],
 "loop": false,
 "name": "blink",
 "speed": 14.0
 } ]
 
-[sub_resource type="PhysicsMaterial" id=11]
+[sub_resource type="PhysicsMaterial" id=27]
 bounce = 0.4
 
-[sub_resource type="CircleShape2D" id=12]
+[sub_resource type="CircleShape2D" id=28]
 radius = 3.99614
 
 [sub_resource type="AtlasTexture" id=13]
@@ -184,17 +184,17 @@ drag_margin_bottom = 0.25
 script = ExtResource( 6 )
 
 [node name="shape" type="CollisionShape2D" parent="body2"]
-shape = SubResource( 1 )
+shape = SubResource( 23 )
 
 [node name="sprite" type="AnimatedSprite" parent="body2"]
-frames = SubResource( 10 )
+frames = SubResource( 26 )
 animation = "blink"
 script = ExtResource( 4 )
 
 [node name="body" type="RigidBody2D" parent="."]
 visible = false
 mass = 1.02041
-physics_material_override = SubResource( 11 )
+physics_material_override = SubResource( 27 )
 gravity_scale = 2.0
 continuous_cd = 2
 contacts_reported = 1
@@ -214,10 +214,10 @@ drag_margin_bottom = 0.25
 script = ExtResource( 6 )
 
 [node name="shape" type="CollisionShape2D" parent="body"]
-shape = SubResource( 1 )
+shape = SubResource( 23 )
 
 [node name="sprite" type="AnimatedSprite" parent="body"]
-frames = SubResource( 10 )
+frames = SubResource( 26 )
 animation = "blink"
 script = ExtResource( 4 )
 
@@ -232,7 +232,7 @@ collision_layer = 0
 collision_mask = 0
 
 [node name="shape" type="CollisionShape2D" parent="hand"]
-shape = SubResource( 12 )
+shape = SubResource( 28 )
 disabled = true
 
 [node name="sprite" type="AnimatedSprite" parent="hand"]

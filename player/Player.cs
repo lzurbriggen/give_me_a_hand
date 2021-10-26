@@ -188,24 +188,9 @@ public class Player : Node2D {
           camera.addTrauma(Mathf.Min(hitPower, 0.14f));
           hitSound.VolumeDb = (-6f) * (1f - Mathf.Clamp(hitPower, 0f, 1f));
           hitSound.Play();
-          var dir = velocity.Normalized();
-          float angle = Mathf.Atan2(dir.y, dir.x);
-          int cardinalDir = Mathf.RoundToInt(4 * angle / (2 * Mathf.Pi) + 4) % 4;
-          Vector2? result;
-          if (cardinalDir == 0) {
-            result = getRayPointFromBody(Vector2.Left);
-          } else if (cardinalDir == 1) {
-            result = getRayPointFromBody(Vector2.Up);
-          } else if (cardinalDir == 2) {
-            result = getRayPointFromBody(Vector2.Right);
-          } else {
-            result = getRayPointFromBody(Vector2.Down);
-          }
-          if (result != null) {
-            var dust = dustScn.Instance<Dust>();
-            dust.Position = (Vector2)result;
-            GetTree().Root.AddChild(dust);
-          }
+          var dust = dustScn.Instance<Dust>();
+          dust.Position = collision.Position;
+          GetTree().Root.AddChild(dust);
         }
 
         // damping seems weird
