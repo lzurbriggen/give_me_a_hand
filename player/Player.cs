@@ -21,9 +21,9 @@ public class Player : Node2D {
   private bool closed = false;
   private Vector2 closePosition = Vector2.Zero;
 
-  private AudioStreamPlayer2D hitSound;
-  private AudioStreamPlayer2D jumpSound;
-  private AudioStreamPlayer2D jumpChargeSound;
+  private AudioStreamPlayer hitSound;
+  private AudioStreamPlayer jumpSound;
+  private AudioStreamPlayer jumpChargeSound;
 
   private Timer blinkTimer;
   private Random random;
@@ -45,9 +45,9 @@ public class Player : Node2D {
     camera = body.GetNode<ShakeCamera>("camera");
     dustScn = ResourceLoader.Load<PackedScene>("res://player/dust.tscn");
 
-    hitSound = GetNode<AudioStreamPlayer2D>("hitSound");
-    jumpSound = GetNode<AudioStreamPlayer2D>("jumpSound");
-    jumpChargeSound = GetNode<AudioStreamPlayer2D>("jumpChargeSound");
+    hitSound = GetNode<AudioStreamPlayer>("hitSound");
+    jumpSound = GetNode<AudioStreamPlayer>("jumpSound");
+    jumpChargeSound = GetNode<AudioStreamPlayer>("jumpChargeSound");
 
     random = new Random();
     blinkTimer = new Timer();
@@ -186,7 +186,7 @@ public class Player : Node2D {
         if (velocity.Length() > 30f) {
           var hitPower = (Mathf.Max(velocity.Length() - 150f, 0f)) / 60f;
           camera.addTrauma(Mathf.Min(hitPower, 0.14f));
-          hitSound.VolumeDb = (-6f) * (1f - Mathf.Clamp(hitPower, 0f, 1f));
+          hitSound.VolumeDb = (-18f) * (1f - Mathf.Clamp(hitPower, 0f, 1f));
           hitSound.Play();
           var dust = dustScn.Instance<Dust>();
           dust.Position = collision.Position;
