@@ -5,12 +5,16 @@ public class Hud : Control {
   float timeElapsed = 0f;
   Label timeLabel;
 
+  public bool Finished = false;
+
   public override void _Ready() {
     timeLabel = GetNode<Label>("time");
   }
 
   public override void _Process(float delta) {
-    timeElapsed += delta;
+    if (!Finished) {
+      timeElapsed += delta;
+    }
     timeLabel.Text = timeString();
   }
 

@@ -38,9 +38,9 @@ public class PauseMenu : Control {
   void toggleFullscreen() {
     OS.WindowFullscreen = !OS.WindowFullscreen;
     if (OS.WindowFullscreen) {
-      toggleFullscreenButton.Text = "Windowed";
+      toggleFullscreenButton.GetNode<Label>("label").Text = "Windowed";
     } else {
-      toggleFullscreenButton.Text = "Fullscreen";
+      toggleFullscreenButton.GetNode<Label>("label").Text = "Fullscreen";
     }
   }
 }

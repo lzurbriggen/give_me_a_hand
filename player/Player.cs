@@ -169,6 +169,12 @@ public class Player : Node2D {
         velocity = Vector2.Zero;
         body.Position += moveDir * moveForce * delta;
       }
+      if (Input.IsActionJustPressed("ui_page_up")) {
+        body.Position += new Vector2(0, -320);
+      }
+      if (Input.IsActionJustPressed("ui_page_down")) {
+        body.Position += new Vector2(0, 320);
+      }
     }
 
     // var velocity = speed * delta * direction # move slow? increases speed or multiply this x 100
