@@ -2,7 +2,6 @@ using Godot;
 using System;
 
 public class UI : CanvasLayer {
-  private bool gamePaused = false;
   private Control pauseMenu;
 
   public override void _Ready() {
@@ -11,16 +10,14 @@ public class UI : CanvasLayer {
 
   public override void _Process(float delta) {
     if (Input.IsActionJustPressed("ui_cancel")) {
-      if (gamePaused) {
+      if (pauseMenu.Visible) {
         pauseMenu.Hide();
         Input.SetMouseMode(Input.MouseMode.Confined);
         GetTree().Paused = false;
-        gamePaused = false;
       } else {
         pauseMenu.Show();
         Input.SetMouseMode(Input.MouseMode.Visible);
         GetTree().Paused = true;
-        gamePaused = true;
       }
     }
   }

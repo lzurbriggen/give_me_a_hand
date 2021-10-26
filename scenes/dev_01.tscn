@@ -35,7 +35,7 @@ bus = "Music"
 position = Vector2( 224, -48 )
 z_index = 10
 frames = ExtResource( 4 )
-frame = 11
+frame = 9
 playing = true
 
 [node name="rocket" parent="." instance=ExtResource( 6 )]

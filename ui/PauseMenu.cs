@@ -11,6 +11,8 @@ public class PauseMenu : Control {
   private HSlider sfxSlider;
   private Button exitButton;
   private Button toggleFullscreenButton;
+  private Button closeButton;
+
 
   public override void _Ready() {
     this.Hide();
@@ -19,6 +21,8 @@ public class PauseMenu : Control {
     sfxSlider = rect.GetNode<HSlider>("sfxSlider");
     exitButton = rect.GetNode<Button>("exit");
     exitButton.Connect("pressed", this, nameof(exitGame), new Godot.Collections.Array());
+    closeButton = rect.GetNode<Button>("closeButton");
+    closeButton.Connect("pressed", this, nameof(closeMenu), new Godot.Collections.Array());
     toggleFullscreenButton = rect.GetNode<Button>("toggleFullscreen");
     toggleFullscreenButton.Connect("pressed", this, nameof(toggleFullscreen), new Godot.Collections.Array());
 
@@ -33,6 +37,12 @@ public class PauseMenu : Control {
 
   void exitGame() {
     GetTree().Quit();
+  }
+
+  void closeMenu() {
+    this.Hide();
+    Input.SetMouseMode(Input.MouseMode.Confined);
+    GetTree().Paused = false;
   }
 
   void toggleFullscreen() {

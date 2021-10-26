@@ -9,6 +9,8 @@ public class Rocket : Node2D {
   private CPUParticles2D flightSmoke;
   private Camera2D camera;
 
+  private Timer launchTimer;
+
   private bool flying = false;
 
   public override void _Ready() {
@@ -28,21 +30,31 @@ public class Rocket : Node2D {
 
     area.Connect("body_entered", this, nameof(bodyEntered));
     sprite.Connect("animation_finished", this, nameof(animFinished));
+
+    launchTimer = new Timer();
+    launchTimer.OneShot = true;
+    launchTimer.WaitTime = 1.5f;
+    launchTimer.Connect("timeout", this, nameof(launch));
+    AddChild(launchTimer);
   }
 
   void bodyEntered(PhysicsBody2D body) {
     if (body is KinematicBody2D) {
       var hud = GetTree().Root.GetNode<CanvasLayer>("root/ui").GetNode<Hud>("hud");
       hud.Finished = true;
+      launchTimer.Start();
       var player = body.GetParent<Player>();
       player.Hide();
       player.SetPhysicsProcess(false);
       player.SetProcess(false);
       camera.Current = true;
-      sprite.Play("launch");
-      idleSmoke.Hide();
-      launchSmoke.Show();
     }
+  }
+
+  void launch() {
+    sprite.Play("launch");
+    idleSmoke.Hide();
+    launchSmoke.Show();
   }
 
   void animFinished() {

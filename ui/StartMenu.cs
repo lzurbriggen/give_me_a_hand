@@ -29,8 +29,10 @@ public class StartMenu : Control {
     if (Input.IsActionJustPressed("ui_cancel")) {
       if (pauseMenu.Visible) {
         pauseMenu.Hide();
+        Input.SetMouseMode(Input.MouseMode.Visible);
       } else {
         pauseMenu.Show();
+        Input.SetMouseMode(Input.MouseMode.Visible);
       }
     }
   }

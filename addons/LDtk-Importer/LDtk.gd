@@ -154,7 +154,6 @@ func new_tileset(tilemap_data, tileset_data):
 	var texture = load(texture_filepath)
 
 	var shouldImportCollisions = tilemap_data.__identifier == "Collisions"
-	print(shouldImportCollisions)
 
 	var texture_image = texture.get_data()
 

@@ -153,3 +153,20 @@ margin_right = 80.0
 margin_bottom = 16.0
 text = "Exit Game"
 align = 1
+
+[node name="closeButton" type="Button" parent="rect"]
+margin_left = 98.0
+margin_top = 6.0
+margin_right = 114.0
+margin_bottom = 22.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="rect/closeButton"]
+margin_left = 1.0
+margin_top = -1.0
+margin_right = 17.0
+margin_bottom = 15.0
+text = "x"
+align = 1
