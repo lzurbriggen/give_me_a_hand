@@ -5,7 +5,7 @@
 [ext_resource path="res://ui/MatchupPro.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://ui/pauseMenu.tscn" type="PackedScene" id=4]
 [ext_resource path="res://ui/StartMenu.cs" type="Script" id=5]
-[ext_resource path="res://audio/Give_me_a_hand_v1.ogg" type="AudioStream" id=6]
+[ext_resource path="res://audio/Give_me_a_hand.ogg" type="AudioStream" id=6]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.101961, 0.0745098, 0.14902, 1 )

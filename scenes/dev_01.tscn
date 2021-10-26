@@ -4,7 +4,7 @@
 [ext_resource path="res://ui/ui.tscn" type="PackedScene" id=2]
 [ext_resource path="res://map/map_main_01.ldtk" type="PackedScene" id=3]
 [ext_resource path="res://ui/tutorial.tres" type="SpriteFrames" id=4]
-[ext_resource path="res://audio/Give_me_a_hand_v1.ogg" type="AudioStream" id=5]
+[ext_resource path="res://audio/Give_me_a_hand.ogg" type="AudioStream" id=5]
 [ext_resource path="res://map/rocket.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui/default_theme.tres" type="Theme" id=7]
 [ext_resource path="res://ui/MatchupPro.ttf" type="DynamicFontData" id=8]
@@ -35,7 +35,7 @@ bus = "Music"
 position = Vector2( 224, -48 )
 z_index = 10
 frames = ExtResource( 4 )
-frame = 9
+frame = 2
 playing = true
 
 [node name="rocket" parent="." instance=ExtResource( 6 )]

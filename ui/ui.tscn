@@ -8,6 +8,7 @@
 [node name="ui" type="CanvasLayer"]
 pause_mode = 2
 process_priority = 1
+layer = 2
 script = ExtResource( 2 )
 
 [node name="hud" type="Control" parent="."]

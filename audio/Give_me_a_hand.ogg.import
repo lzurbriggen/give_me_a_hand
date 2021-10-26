@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Give_me_a_hand.ogg-19afc37dbfd1c8e464b5549e6134600d.oggstr"
+
+[deps]
+
+source_file="res://audio/Give_me_a_hand.ogg"
+dest_files=[ "res://.import/Give_me_a_hand.ogg-19afc37dbfd1c8e464b5549e6134600d.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
