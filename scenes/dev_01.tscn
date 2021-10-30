@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ui/ui.tscn" type="PackedScene" id=2]
 [ext_resource path="res://map/map_main_01.ldtk" type="PackedScene" id=3]
 [ext_resource path="res://ui/tutorial.tres" type="SpriteFrames" id=4]
-[ext_resource path="res://audio/Give_me_a_hand.ogg" type="AudioStream" id=5]
 [ext_resource path="res://map/rocket.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui/default_theme.tres" type="Theme" id=7]
 [ext_resource path="res://ui/MatchupPro.ttf" type="DynamicFontData" id=8]
@@ -24,12 +23,6 @@ position = Vector2( -352, -376 )
 position = Vector2( 24, -104 )
 
 [node name="ui" parent="." instance=ExtResource( 2 )]
-
-[node name="music" type="AudioStreamPlayer" parent="."]
-pause_mode = 2
-stream = ExtResource( 5 )
-autoplay = true
-bus = "Music"
 
 [node name="tutorial" type="AnimatedSprite" parent="."]
 position = Vector2( 224, -48 )

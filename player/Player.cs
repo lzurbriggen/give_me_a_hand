@@ -204,7 +204,7 @@ public class Player : Node2D {
           velocity.x *= (1f - 0.2f * delta);
         }
 
-        var bounciness = 0.5f;
+        var bounciness = 0.425f;
 
         velocity = velocity.Bounce(collision.Normal) * bounciness;
       }
@@ -215,12 +215,19 @@ public class Player : Node2D {
   Vector2? getHandCollision() {
     var spaceState = GetWorld2d().DirectSpaceState;
     var dir = body.GlobalPosition.DirectionTo(GetGlobalMousePosition());
-    var result = spaceState.IntersectRay(body.GlobalPosition, body.GlobalPosition + dir * 320f, new Godot.Collections.Array(body));
+    var result = spaceState.IntersectRay(body.GlobalPosition, body.GlobalPosition + dir * 1000f, new Godot.Collections.Array(body));
     if (result.Count == 0) {
       return null;
     }
+    var resPosition = (Vector2)result["position"];
+    var viewportRect = GetViewportRect();
+    viewportRect.Position = -camera.GetViewportTransform().origin;
+
+    if (!viewportRect.HasPoint(resPosition)) {
+      return null;
+    }
     var normal = (Vector2)result["normal"];
-    return (Vector2)result["position"] + normal * 2f;
+    return resPosition + normal * 2f;
   }
 
   float jumpStrengthMult() {
@@ -250,6 +257,17 @@ public class Player : Node2D {
   }
 
   public override void _Input(InputEvent ev) {
+    if (ev is InputEventMouseMotion) {
+      var motionEv = ev as InputEventMouseMotion;
+      var target = motionEv.Position - GetViewport().Size * 0.5f;
+      var deadZone = 20f;
+      if (target.Length() < deadZone) {
+        camera.Position = Vector2.Zero;
+      } else {
+        camera.Position = target.Normalized() * (target.Length() - deadZone) * 0.95f;
+      }
+    }
+
     if (Input.IsActionJustPressed("ui_accept")) {
       if (!closed) {
         if (slowEnough()) {
